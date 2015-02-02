@@ -2,9 +2,9 @@ class DragButton < Qt::PushButton
   def initialize(parent = nil)
     super
     setFixedSize(50, 30)
-    # setAttribute(Qt::WA_DeleteOnClose)
   end
 
+  ## When pressing mouse key, create mimedata that contains button's text
   def mousePressEvent(event)
     mimeData = Qt::MimeData.new
     mimeData.text = self.text
@@ -13,11 +13,10 @@ class DragButton < Qt::PushButton
     drag.mimeData = mimeData
 
     dropAction = drag.start(Qt::CopyAction)
-    if dropAction == Qt::CopyAction
-      close
-      # update
-    end
+
+    close if dropAction == Qt::CopyAction
   end
 
+  ## Make add buttons to layout a little more prettier
   def to(layout); layout.addWidget(self); end
 end
